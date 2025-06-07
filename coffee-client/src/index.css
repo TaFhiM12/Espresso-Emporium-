@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Rancho&display=swap');
+
+.rancho{
+  font-family: "Rancho", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, cupcake;
+}
