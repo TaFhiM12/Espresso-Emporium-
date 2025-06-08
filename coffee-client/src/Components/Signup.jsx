@@ -4,6 +4,7 @@ import { use } from "react";
 import Swal from "sweetalert2";
 import { FaCoffee } from "react-icons/fa";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 const Signup = () => {
   const { createUser, updateUser, setUser } = use(AuthContext);
@@ -84,6 +85,9 @@ const Signup = () => {
 
   return (
     <div className="min-h-screen bg-[#f5e9dc] flex items-center justify-center p-4 relative overflow-hidden">
+      <Helmet>
+        <title>Espresso Emporium | Sign Up</title>
+      </Helmet>
       {/* Coffee bean decorations */}
       <div className="absolute top-1/3 right-8 w-10 h-10 bg-[#8b5a2b] rounded-full opacity-10"></div>
       <div className="absolute bottom-20 left-20 w-14 h-14 bg-[#6f4e37] rounded-full opacity-10"></div>

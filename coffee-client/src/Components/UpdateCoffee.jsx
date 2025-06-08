@@ -3,6 +3,7 @@ import React from "react";
 import axios from "axios";
 import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const UpdateCoffee = () => {
   const { _id, name, chef, supplier, taste, details, photo, price } =
@@ -49,6 +50,9 @@ const UpdateCoffee = () => {
 
   return (
     <div className="min-h-screen bg-[#f5e9dc] py-12 px-4 sm:px-6 lg:px-8">
+      <Helmet>
+        <title>Espresso Emporium | Update Coffee</title>
+      </Helmet>
       <div className="max-w-4xl mx-auto">
         <div className="relative bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-[#e6d5c3]">
           {/* Form Header */}

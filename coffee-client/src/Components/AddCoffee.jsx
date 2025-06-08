@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import Swal from "sweetalert2";
 
 const AddCoffee = () => {
@@ -49,6 +50,9 @@ const AddCoffee = () => {
 
   return (
     <div className="min-h-screen bg-[#f5e9dc] py-12 px-4 sm:px-6 lg:px-8">
+      <Helmet>
+        <title>Espresso Emporium | Add Coffee</title>
+      </Helmet>
       <div className="max-w-4xl mx-auto">
         {/* Coffee Beans Decoration */}
         <div className="relative ">

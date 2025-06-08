@@ -63,6 +63,9 @@ const Signin = () => {
 
   return (
     <div className="min-h-screen bg-[#f5e9dc] flex items-center justify-center p-4 relative overflow-hidden">
+      <Helmet>
+        <title>Espresso Emporium | Sign In</title>
+      </Helmet>
       {/* Coffee bean decorations */}
       <div className="absolute top-20 left-10 w-12 h-12 bg-[#6f4e37] rounded-full opacity-10"></div>
       <div className="absolute bottom-1/4 right-16 w-16 h-16 bg-[#8b5a2b] rounded-full opacity-10"></div>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useLoaderData } from "react-router";
 import Swal from "sweetalert2";
 import '../index.css'; // Assuming you have a CSS file for styles
+import { Helmet } from "react-helmet";
 
 const Users = () => {
   const initialUsers = useLoaderData();
@@ -49,6 +50,9 @@ const Users = () => {
 
   return (
     <div className="min-h-screen bg-[#f5e9dc] py-12 px-4 sm:px-6 lg:px-8">
+      <Helmet>
+        <title>Espresso Emporium | Users</title>
+      </Helmet>
       <h1 className="text-4xl font-extrabold rancho text-center">NO OF USER : {users.length}</h1>
       <div>
         <div className="overflow-x-auto">

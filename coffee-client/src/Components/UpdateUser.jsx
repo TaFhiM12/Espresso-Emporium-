@@ -74,6 +74,9 @@ const UpdateUser = () => {
 
   return (
     <div className="min-h-screen bg-[#f5e9dc] py-12 px-4 sm:px-6 lg:px-8">
+        <Helmet>
+        <title>Espresso Emporium | Update User</title>
+      </Helmet>
       <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-[#e6d5c3]">
         <div className="bg-[#6f4e37] px-8 py-6 text-center">
           <h2 className="text-2xl font-bold text-[#f5e9dc] flex items-center justify-center gap-2">
