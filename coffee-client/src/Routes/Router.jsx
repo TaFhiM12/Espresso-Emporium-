@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
         hydrateFallback: <LoadingSpinner />,
       },
       {
-        path: "/coffee/:id",
+        path: "/coffees/:id",
         loader: ({ params }) =>
           fetch(`https://coffee-store-server-mu-blush.vercel.app/coffees/${params.id}`),
         element: (

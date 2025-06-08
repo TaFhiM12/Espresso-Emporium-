@@ -6,9 +6,11 @@ import {
   FaMoneyBillWave,
   FaInfoCircle,
 } from "react-icons/fa";
+import { Helmet } from "react-helmet";
 
 const CoffeeDetails = () => {
   const coffee = useLoaderData();
+//   console.log(coffee)
 
   return (
     <div className="min-h-screen bg-[#f5e9dc] py-12 px-4 sm:px-6 lg:px-8">

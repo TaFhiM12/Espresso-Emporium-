@@ -73,7 +73,7 @@ const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
           {/* Action Buttons */}
           <div className="mt-4 flex space-x-3">
             <Link 
-              to={`/coffee/${_id}`} 
+              to={`/coffees/${_id}`} 
               className="btn btn-sm bg-[#f5e9dc] hover:bg-[#e6d5c3] text-[#6f4e37] border-[#e6d5c3] flex items-center"
             >
               <Eye className="w-4 h-4 mr-1" />
