@@ -9,7 +9,7 @@ const AddCoffee = () => {
     const coffeeData = Object.fromEntries(formData.entries());
 
     try {
-      const res = await fetch("http://localhost:3000/coffees", {
+      const res = await fetch("https://coffee-store-server-mu-blush.vercel.app/coffees", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -51,7 +51,7 @@ const AddCoffee = () => {
     <div className="min-h-screen bg-[#f5e9dc] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Coffee Beans Decoration */}
-        <div className="relative">
+        <div className="relative ">
           <div className="absolute -top-8 -left-8 w-16 h-16 bg-[#6f4e37] rounded-full opacity-20"></div>
           <div className="absolute -bottom-8 -right-8 w-20 h-20 bg-[#6f4e37] rounded-full opacity-20"></div>
 
@@ -118,7 +118,7 @@ const AddCoffee = () => {
                 {/* Taste Field */}
                 <div className="space-y-1">
                   <label className="block text-sm font-medium text-[#6f4e37]">
-                    Flavor Profile
+                    Flavor
                   </label>
                   <input
                     type="text"

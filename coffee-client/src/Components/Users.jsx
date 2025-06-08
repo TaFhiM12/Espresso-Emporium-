@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import Swal from "sweetalert2";
+import '../index.css'; // Assuming you have a CSS file for styles
 
 const Users = () => {
   const initialUsers = useLoaderData();
   const [users, setUsers] = useState(initialUsers);
-
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -17,7 +17,7 @@ const Users = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/users/${id}`, {
+        fetch(`https://coffee-store-server-mu-blush.vercel.app/users/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -33,18 +33,23 @@ const Users = () => {
                 icon: "success",
               });
             }
-          });
-        // Swal.fire({
-        //   title: "Deleted!",
-        //   text: "Your file has been deleted.",
-        //   icon: "success",
-        // });
+          })
+          .catch((error) => {
+            console.error("Error deleting user:", error);
+            Swal.fire({
+              title: "Error",
+              text: "There was an error deleting the user.",
+              icon: "error",
+              confirmButtonColor: "#d33",
+            });
+          } );
       }
     });
   };
+
   return (
-    <div>
-      <h1 className="text-4xl font-extrabold text-center">{users.length}</h1>
+    <div className="min-h-screen bg-[#f5e9dc] py-12 px-4 sm:px-6 lg:px-8">
+      <h1 className="text-4xl font-extrabold rancho text-center">NO OF USER : {users.length}</h1>
       <div>
         <div className="overflow-x-auto">
           <table className="table">
@@ -89,7 +94,7 @@ const Users = () => {
                   <td>{user.email}</td>
                   <th>
                     <button className="btn btn-ghost btn-xs">details</button>
-                    <button className="btn btn-ghost btn-xs">Edit</button>
+                    <Link to={`/users/${user._id}`}><button className="btn btn-ghost btn-xs">Edit</button></Link>
                     <button
                       onClick={() => handleDelete(user._id)}
                       className="btn btn-ghost btn-xs"

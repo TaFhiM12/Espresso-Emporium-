@@ -4,236 +4,238 @@ import "../index.css";
 import { use } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { FaUserCircle } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
+import { IoSettingsOutline } from "react-icons/io5";
 import Swal from "sweetalert2";
 
 const Header = () => {
   const { user, signOutUser } = use(AuthContext);
   const navigate = useNavigate();
-  // console.log(user)
-  const links = (
-    <>
-      {user ? (
-        <>
-          <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                `px-4 py-2 rounded-md transition-all duration-300 ${
-                  isActive
-                    ? "bg-[#f5e9dc] text-[#6f4e37] font-medium shadow-md"
-                    : "text-[#f5e9dc] hover:bg-[#8b5a2b] hover:text-white"
-                }`
-              }
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/addCoffee"
-              className={({ isActive }) =>
-                `px-4 py-2 rounded-md transition-all duration-300 ${
-                  isActive
-                    ? "bg-[#f5e9dc] text-[#6f4e37] font-medium shadow-md"
-                    : "text-[#f5e9dc] hover:bg-[#8b5a2b] hover:text-white"
-                }`
-              }
-            >
-              Add Coffee
-            </NavLink>
-          </li>
-        </>
-      ) : (
-        <>
-          <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                `px-4 py-2 rounded-md transition-all duration-300 ${
-                  isActive
-                    ? "bg-[#f5e9dc] text-[#6f4e37] font-medium shadow-md"
-                    : "text-[#f5e9dc] hover:bg-[#8b5a2b] hover:text-white"
-                }`
-              }
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/addCoffee"
-              className={({ isActive }) =>
-                `px-4 py-2 rounded-md transition-all duration-300 ${
-                  isActive
-                    ? "bg-[#f5e9dc] text-[#6f4e37] font-medium shadow-md"
-                    : "text-[#f5e9dc] hover:bg-[#8b5a2b] hover:text-white"
-                }`
-              }
-            >
-              Add Coffee
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/signin"
-              className={({ isActive }) =>
-                `px-4 py-2 rounded-md transition-all duration-300 ${
-                  isActive
-                    ? "bg-[#f5e9dc] text-[#6f4e37] font-medium shadow-md"
-                    : "text-[#f5e9dc] hover:bg-[#8b5a2b] hover:text-white"
-                }`
-              }
-            >
-              Sign In
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/signup"
-              className={({ isActive }) =>
-                `px-4 py-2 rounded-md transition-all duration-300 ${
-                  isActive
-                    ? "bg-[#f5e9dc] text-[#6f4e37] font-medium shadow-md"
-                    : "text-[#f5e9dc] hover:bg-[#8b5a2b] hover:text-white"
-                }`
-              }
-            >
-              Sign Up
-            </NavLink>
-          </li>
-        </>
-      )}
-    </>
-  );
 
   const handleSignOut = () => {
     Swal.fire({
-    title: 'Sign Out?',
-    text: 'Are you sure you want to sign out?',
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonColor: '#6f4e37',  // Coffee brown
-    cancelButtonColor: '#d33',      // Red
-    confirmButtonText: 'Yes, sign out',
-    cancelButtonText: 'Cancel',
-    background: '#f5e9dc',         // Cream background
-    color: '#6f4e37',              // Brown text
-  }).then((result) => {
-    if (result.isConfirmed) {
-      signOutUser()
-        .then(() => {
-          Swal.fire({
-            title: 'Signed Out!',
-            text: 'You have been successfully signed out.',
-            icon: 'success',
-            confirmButtonColor: '#6f4e37',
-            timer: 2000,
-            showConfirmButton: false
+      title: 'Sign Out?',
+      text: 'Are you sure you want to sign out?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#6f4e37',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, sign out',
+      cancelButtonText: 'Cancel',
+      background: '#f5e9dc',
+      color: '#6f4e37',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signOutUser()
+          .then(() => {
+            Swal.fire({
+              title: 'Signed Out!',
+              text: 'You have been successfully signed out.',
+              icon: 'success',
+              confirmButtonColor: '#6f4e37',
+              timer: 2000,
+              showConfirmButton: false
+            });
+            navigate('/signin');
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: 'Error',
+              text: error.message || 'Sign out failed',
+              icon: 'error',
+              confirmButtonColor: '#d33'
+            });
           });
-          navigate('/signin');
-        })
-        .catch((error) => {
-          Swal.fire({
-            title: 'Error',
-            text: error.message || 'Sign out failed',
-            icon: 'error',
-            confirmButtonColor: '#d33'
-          });
-        });
-    }
-  });
-};
+      }
+    });
+  };
+
   return (
-    <div
-      className="flex justify-center items-center px-4 p-4 gap-2"
+    <header 
+      className="w-full py-4 px-6  backdrop-blur-sm bg-black/30"
       style={{
         backgroundImage: "url(15.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
-      <div className="navbar w-11/12 mx-auto">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost lg:hidden text-white"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {" "}
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
-              </svg>
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-sm sm:text-lg"
-            >
-              {links}
-            </ul>
-          </div>
-          <Link className="flex justify-center items-center" to="/">
-            <img className="w-12" src="logo1.png" alt="" />
-            <div className="hidden md:inline" to="/">
-              <h1 className="text-2xl rancho sm:text-3xl md:text-4xl lg:text-5xl text-white">
-                Espresso Emporium
-              </h1>
-            </div>
-          </Link>
-        </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 text-white text-sm sm:text-lg space-x-2">
-            {links}
-          </ul>
-        </div>
-        <div className="navbar-end">
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
+        {/* Logo Section */}
+        <Link to="/" className="flex items-center space-x-3">
+          <img className="w-10 h-10" src="logo1.png" alt="Espresso Emporium" />
+          <span className="text-2xl font-bold text-white rancho hidden md:block">
+            Espresso Emporium
+          </span>
+        </Link>
+
+        {/* Desktop Navigation - Horizontal with centered links */}
+        <nav className="hidden md:flex items-center space-x-1">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `px-5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                isActive 
+                  ? "bg-white/20 text-white border-b-2 border-amber-200" 
+                  : "text-white/80 hover:text-white hover:bg-white/10"
+              }`
+            }
+          >
+            Home
+          </NavLink>
+          
+          <NavLink
+            to="/addCoffee"
+            className={({ isActive }) =>
+              `px-5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                isActive 
+                  ? "bg-white/20 text-white border-b-2 border-amber-200" 
+                  : "text-white/80 hover:text-white hover:bg-white/10"
+              }`
+            }
+          >
+            Add Coffee
+          </NavLink>
+          <NavLink
+            to="/users"
+            className={({ isActive }) =>
+              `px-5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                isActive 
+                  ? "bg-white/20 text-white border-b-2 border-amber-200" 
+                  : "text-white/80 hover:text-white hover:bg-white/10"
+              }`
+            }
+          >
+          Users
+          </NavLink>
+
+        </nav>
+
+        {/* User Section */}
+        <div className="flex items-center space-x-4">
           {user ? (
-            <div className="text-sm sm:text-lg md:text-xl lg:text-xl py-6 px-8 cursor-pointer">
-              <div className="dropdown dropdown-bottom dropdown-end text-white">
-                <div
-                  tabIndex={0}
-                  role="button"
-                  className="m-1 flex items-center justify-center"
+            <div className="relative group">
+              <button className="flex items-center space-x-2 focus:outline-none">
+                {user.photoURL ? (
+                  <img
+                    className="w-9 h-9 rounded-full border-2 border-white/30 hover:border-amber-200 transition-colors"
+                    src={user.photoURL}
+                    alt={user.displayName || "User"}
+                  />
+                ) : (
+                  <FaUserCircle className="text-white/90 hover:text-white text-3xl" />
+                )}
+                <span className="text-white text-sm font-medium hidden lg:inline">
+                  {user.displayName || "Account"}
+                </span>
+              </button>
+
+              {/* Dropdown Menu */}
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <Link
+                  to="/profile"
+                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 hover:text-amber-800"
                 >
-                  {user.photoURL ? (
-                    <img
-                      className="w-13 h-14 rounded-full"
-                      src={user.photoURL}
-                      alt="User"
-                    />
-                  ) : (
-                    <FaUserCircle size={40} />
-                  )}
-                  <span className="ml-2">{user.displayName || "User"}</span>
-                </div>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content menu bg-base-100 text-black rounded-box z-1 w-52 p-2 shadow-sm"
+                  <IoSettingsOutline className="mr-2" />
+                  My Profile
+                </Link>
+                <button
+                  onClick={handleSignOut}
+                  className="w-full text-left flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-amber-50 hover:text-amber-800"
                 >
-                  <li>
-                    <Link to="/profile">My Profile</Link>
-                  </li>
-                  <li>
-                    <button onClick={handleSignOut}>SignOut</button>
-                  </li>
-                </ul>
+                  <FiLogOut className="mr-2" />
+                  Sign Out
+                </button>
               </div>
             </div>
           ) : (
-            <FaUserCircle color="white" size={40} />
+            <div className="flex space-x-2">
+              <>
+              <NavLink
+                to="/signin"
+                className={({ isActive }) =>
+                  `px-5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive 
+                      ? "bg-white/20 text-white border-b-2 border-amber-200" 
+                      : "text-white/80 hover:text-white hover:bg-white/10"
+                  }`
+                }
+              >
+                Sign In
+              </NavLink>
+              <NavLink
+                to="/signup"
+                className={({ isActive }) =>
+                  `px-5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive 
+                      ? "bg-white/20 text-white border-b-2 border-amber-200" 
+                      : "text-white/80 hover:text-white hover:bg-white/10"
+                  }`
+                }
+              >
+                Sign Up
+              </NavLink>
+            </>
+            </div>
           )}
+
+          {/* Mobile Menu Button */}
+          <button className="md:hidden text-white focus:outline-none">
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
         </div>
       </div>
-    </div>
+
+      {/* Mobile Menu - Vertical layout */}
+      <div className="md:hidden mt-4 px-2 py-3 bg-white/10 backdrop-blur-md rounded-lg">
+        <nav className="flex flex-col space-y-2">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `px-4 py-2 rounded-lg text-white font-medium ${
+                isActive ? "bg-white/20" : "hover:bg-white/10"
+              }`
+            }
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/addCoffee"
+            className={({ isActive }) =>
+              `px-4 py-2 rounded-lg text-white font-medium ${
+                isActive ? "bg-white/20" : "hover:bg-white/10"
+              }`
+            }
+          >
+            Add Coffee
+          </NavLink>
+          <NavLink
+            to="/users"
+            className={({ isActive }) =>
+              `px-5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                isActive 
+                  ? "bg-white/20 text-white border-b-2 border-amber-200" 
+                  : "text-white/80 hover:text-white hover:bg-white/10"
+              }`
+            }
+          >
+          Users
+          </NavLink>
+        </nav>
+      </div>
+    </header>
   );
 };
 

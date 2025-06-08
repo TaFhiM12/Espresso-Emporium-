@@ -50,19 +50,42 @@ async function run() {
       res.send(result);
     });
 
-    app.put("/coffees/:id", async (req, res) => {
-      const id = req.params.id;
-      const filter = { _id : new ObjectId(id)};
-      const options = { upsert: true} ;
-      const updatedCoffee = req.body
-      const updatedDoc = {
-        $set: updatedCoffee
+    // app.put("/coffees/:id", async (req, res) => {
+    //   const id = req.params.id;
+    //   const filter = { _id : new ObjectId(id)};
+    //   const options = { upsert: true} ;
+    //   const updatedCoffee = req.body
+    //   const updatedDoc = {
+    //     $set: updatedCoffee
+    //   }
+
+    //   const result = await coffeesCollection.updateOne(filter ,updatedDoc , options);
+    //   res.send(result);
+
+    // });
+
+    // app.put('/coffees/:id' , async (req , res) => {
+    //   const id = req.params.id ;
+    //   const filter = { _id : new ObjectId(id)};
+    //   const options = { upsert :  true} ;
+    //   const updateDoc = {
+    //     $set: req.body
+    //   }
+    //   const result = await coffeesCollection.updateOne(filter , updateDoc , options);
+    //   res.send(result);
+    // })
+
+
+    app.put('/coffees/:id' , async (req, res) => {
+      const id = req.params.id ;
+      const filter = { _id : new ObjectId(id)} ;
+      const options = { upsert : true };
+      const updateDoc = {
+        $set: req.body
       }
-
-      const result = await coffeesCollection.updateOne(filter ,updatedDoc , options);
+      const result = await coffeesCollection.updateOne(filter , updateDoc , options) ;
       res.send(result);
-
-    });
+    })
 
     app.delete("/coffees/:id", async (req, res) => {
       const id = req.params.id;
@@ -76,6 +99,26 @@ async function run() {
       const result = await usersCollection.find().toArray();
       res.send(result);
     })
+
+    app.get('/users/:id' , async(req,res) => {
+      const id = req.params.id;
+      const query = { _id : new ObjectId(id)};
+      const result = await usersCollection.findOne(query);
+      res.send(result);
+    })
+
+    app.put('/users/:id' , async(req,res) => {
+      const id = req.params.id;
+      const filter = { _id : new ObjectId(id)};
+      const options = { upsert: true };
+      const userProfile = req.body;
+      const updatedDoc = {
+        $set: userProfile,
+      };
+      const result = await usersCollection.updateOne(filter, updatedDoc, options);
+      res.send(result);
+    });
+
     app.post('/users' , async(req,res)=>{
       const userProfile = req.body;
       const result = await usersCollection.insertOne(userProfile);

@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
 import { FaCoffee } from "react-icons/fa";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Signin = () => {
   const { signInUser } = use(AuthContext);
@@ -15,7 +16,22 @@ const Signin = () => {
     const password = e.target.password.value;
 
     signInUser(email, password)
-      .then(() => {
+      .then((result) => {
+        
+
+        const user = result.user;
+        axios.patch('https://coffee-store-server-mu-blush.vercel.app/users', {
+          email: user.email,
+          lastSignInTime: user.metadata.lastSignInTime,
+        })
+          .then(() => {
+            console.log("User sign-in time updated successfully"); 
+          })
+          .catch((error) => {
+            console.error("Error updating user sign-in time:", error);
+          });
+            
+
         Swal.fire({
           title: "Welcome Back!",
           text: "Your coffee is waiting...",

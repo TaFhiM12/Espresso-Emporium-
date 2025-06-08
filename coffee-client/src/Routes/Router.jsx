@@ -2,9 +2,9 @@ import { createBrowserRouter } from "react-router";
 import { lazy, Suspense } from "react";
 import PrivateRouter from "./PrivateRouter";
 import ErrorBoundary from "../Components/ErrorBoundary";
-import LoadingSpinner from './../Components/LoadingSpinner';
+import LoadingSpinner from "./../Components/LoadingSpinner";
 
-const MainLayout = lazy( () => import("../Layouts/MainLayout"));
+const MainLayout = lazy(() => import("../Layouts/MainLayout"));
 const Home = lazy(() => import("../Components/Home"));
 const AddCoffee = lazy(() => import("../Components/AddCoffee"));
 const UpdateCoffee = lazy(() => import("../Components/UpdateCoffee"));
@@ -12,9 +12,7 @@ const Signup = lazy(() => import("../Components/Signup"));
 const Signin = lazy(() => import("../Components/Signin"));
 const Users = lazy(() => import("../Components/Users"));
 const CoffeeDetails = lazy(() => import("../Components/CoffeeDetails"));
-
-
-
+const UpdateUser = lazy ( () => import("../Components/UpdateUser"));
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +23,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: () => fetch("http://localhost:3000/coffees"),
+        loader: () => fetch("https://coffee-store-server-mu-blush.vercel.app/coffees"),
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <Home />
@@ -47,10 +45,10 @@ export const router = createBrowserRouter([
       {
         path: "/coffee/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/coffees/${params.id}`),
+          fetch(`https://coffee-store-server-mu-blush.vercel.app/coffees/${params.id}`),
         element: (
           <Suspense fallback={<LoadingSpinner />}>
-              <CoffeeDetails />
+            <CoffeeDetails />
           </Suspense>
         ),
         hydrateFallback: <LoadingSpinner />,
@@ -58,7 +56,7 @@ export const router = createBrowserRouter([
       {
         path: "/updateCoffee/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/coffees/${params.id}`),
+          fetch(`https://coffee-store-server-mu-blush.vercel.app/coffees/${params.id}`),
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <PrivateRouter>
@@ -88,11 +86,24 @@ export const router = createBrowserRouter([
       },
       {
         path: "/users",
-        loader: () => fetch("http://localhost:3000/users"),
+        loader: () => fetch("https://coffee-store-server-mu-blush.vercel.app/users"),
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <PrivateRouter>
               <Users />
+            </PrivateRouter>
+          </Suspense>
+        ),
+        hydrateFallback: <LoadingSpinner />,
+      },
+      {
+        path: "/users/:id",
+        loader: ({ params }) =>
+          fetch(`https://coffee-store-server-mu-blush.vercel.app/users/${params.id}`),
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <PrivateRouter>
+              <UpdateUser/>
             </PrivateRouter>
           </Suspense>
         ),

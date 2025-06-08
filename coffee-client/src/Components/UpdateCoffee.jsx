@@ -1,5 +1,6 @@
 import { Coffee } from "lucide-react";
 import React from "react";
+import axios from "axios";
 import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
@@ -14,16 +15,9 @@ const UpdateCoffee = () => {
     const formData = new FormData(form);
     const updatedCoffee = Object.fromEntries(formData.entries());
 
-    fetch(`http://localhost:3000/coffees/${_id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updatedCoffee),
-    })
-      .then((res) => res.json())
+    axios.put(`https://coffee-store-server-mu-blush.vercel.app/coffees/${_id}`, updatedCoffee)
       .then((data) => {
-        if (data.matchedCount) {
+        if (data.data.matchedCount) {
           Swal.fire({
             position: "center",
             icon: "success",
@@ -119,7 +113,7 @@ const UpdateCoffee = () => {
               {/* Taste Field */}
               <div className="space-y-1">
                 <label className="block text-sm font-medium text-[#6f4e37]">
-                  Flavor Profile
+                  Flavor
                 </label>
                 <input
                   type="text"

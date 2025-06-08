@@ -1,12 +1,13 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
 import { use } from "react";
 import Swal from "sweetalert2";
 import { FaCoffee } from "react-icons/fa";
+import axios from "axios";
 
 const Signup = () => {
-  const { createUser, updateUser } = use(AuthContext);
-
+  const { createUser, updateUser, setUser } = use(AuthContext);
+  const navigate = useNavigate();
   const handleSignUp = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -15,11 +16,46 @@ const Signup = () => {
     );
 
     createUser(email, password)
-      .then(() => {
+      .then((result) => {
+        const userProfileData = {
+          ...rest ,
+          email , 
+          photo,
+          name,
+          creationTime : result.user.metadata.creationTime,
+          lastSignInTime : result.user.metadata.lastSignInTime,
+        }
+        
+        // Save user profile data to the server
+        axios.post("https://coffee-store-server-mu-blush.vercel.app/users", userProfileData)
+          .then(() => {
+            console.log("User data saved successfully");
+          })
+          .catch((error) => {
+            console.error("Error saving user data:", error);
+            Swal.fire({
+              title: "Error",
+              text: "Could not save user data. Please try again later.",
+              icon: "error",
+              background: "#f5e9dc",
+              confirmButtonColor: "#6f4e37",
+              iconColor: "#d33",
+            });
+          });
+            
+
+
+        const user = result.user;
+        // Update user profile with display name and photo URL
         return updateUser({
           displayName: name,
           photoURL: photo,
         }).then(() => {
+          setUser({
+            ...user,
+            displayName: name,
+            photoURL: photo,
+          });
           Swal.fire({
             title: "Welcome to the Coffee Club!",
             html: '<p>Your first brew is on us!</p><small style="color: #6f4e37">Account created successfully</small>',
@@ -30,6 +66,7 @@ const Signup = () => {
             timer: 2000,
             timerProgressBar: true,
           });
+          navigate("/");
           form.reset();
         });
       })
